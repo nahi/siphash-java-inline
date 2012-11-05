@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="siphash-java-inline">
+  <property name="src.java" value="src/main/java"/>
+  <property name="test.java" value="src/test/java"/>
+  <property name="target" value="target"/>
+  <property name="target.classes" value="${target}/classes"/>
+  <property name="target.test-classes" value="${target}/test-classes"/>
+  <property name="junit.jar" value="build_lib/junit.jar"/>
+  <property name="version.source" value="1.6"/>
+  <property name="version.target" value="1.6"/>
+
+  <path id="build.classpath">
+    <pathelement location="${junit.jar}"/>
+  </path>
+
+  <target name="init">
+    <mkdir dir="${target}"/>
+    <mkdir dir="${target.classes}"/>
+    <mkdir dir="${target.test-classes}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${target}"/>
+  </target>
+
+  <target depends="init" name="build" description="Compiles Java source files">
+    <javac debug="true" includeAntRuntime="false" destdir="${target.classes}" source="${version.source}" target="${version.target}">
+      <src path="${src.java}"/>
+    </javac>
+  </target>
+
+  <target depends="init,build" name="test-build" description="Compiles Java test source files">
+    <javac debug="true" includeAntRuntime="false" destdir="${target.test-classes}" source="${version.source}" target="${version.target}">
+      <classpath>
+	<pathelement location="${junit.jar}"/>
+	<pathelement location="${target.classes}"/>
+      </classpath>
+      <src path="${test.java}"/>
+    </javac>
+  </target>
+
+  <target depends="test-build" name="test" description="Run JUnit test">
+    <junit printsummary="true" haltonerror="true">
+      <classpath>
+	<pathelement location="${junit.jar}"/>
+	<pathelement location="${target.classes}"/>
+	<pathelement location="${target.test-classes}"/>
+      </classpath>
+      <test name="SipHashInlineTest"/>
+    </junit>
+  </target>
+</project>
