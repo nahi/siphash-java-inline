@@ -77,7 +77,7 @@ public class SipHashInlineTest extends TestCase {
 	    for (int j = 0; j < i; ++j) {
 		msg[j] = (byte) j;
 	    }
-	    assertEquals(EXPECTED[i], SipHashInline.hash64(k0, k1, msg));
+	    assertEquals(EXPECTED[i], SipHashInline.hash24(k0, k1, msg));
 	}
     }
 }

@@ -10,7 +10,7 @@
  */
 public class SipHashInline {
 
-    public static long hash64(long k0, long k1, byte[] data) {
+    public static long hash24(long k0, long k1, byte[] data) {
         long v0 = 0x736f6d6570736575L ^ k0;
         long v1 = 0x646f72616e646f6dL ^ k1;
         long v2 = 0x6c7967656e657261L ^ k0;
