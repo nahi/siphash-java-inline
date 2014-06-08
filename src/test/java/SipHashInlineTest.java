@@ -80,4 +80,16 @@ public class SipHashInlineTest extends TestCase {
 	    assertEquals(EXPECTED[i], SipHashInline.hash24(k0, k1, msg));
 	}
     }
+
+    // Test hashing data with negative byte values
+    // The original implementation produced identical hash values for these two
+    // messages.
+    // The test vectors do not contain negative byte values, this should be fixed.
+    public void testNegativeByteValues() {
+      long k0 = 0L;
+      long k1 = 0L;
+      byte[] msg1 = { 109, -45, -99, -85, -72, 37, -51, 120, -56, -10, -17, -53, -83, 84, -127, 67 };
+      byte[] msg2 = { 109, -45, -99, -85, -72, 37, -51, 120, -56, 80, 111, 67, -59, 92, 100, 2 };
+      assertTrue(SipHashInline.hash24(k0, k1, msg1) != SipHashInline.hash24(k0, k1, msg2));
+    }
 }

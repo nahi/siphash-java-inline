@@ -22,14 +22,14 @@ public class SipHashInline {
         // processing 8 bytes blocks in data
         while (i < last) {
             // pack a block to long, as LE 8 bytes
-            m = (long) data[i++]       |
-                (long) data[i++] <<  8 |
-                (long) data[i++] << 16 |
-                (long) data[i++] << 24 |
-                (long) data[i++] << 32 |
-                (long) data[i++] << 40 |
-                (long) data[i++] << 48 |
-                (long) data[i++] << 56 ;
+           m =  data[i++] & 0xffL         |
+                (data[i++] & 0xffL) <<  8 |
+                (data[i++] & 0xffL) << 16 |
+                (data[i++] & 0xffL) << 24 |
+                (data[i++] & 0xffL) << 32 |
+                (data[i++] & 0xffL) << 40 |
+                (data[i++] & 0xffL) << 48 |
+                (data[i++] & 0xffL) << 56 ;
             // MSGROUND {
                 v3 ^= m;
 
@@ -101,7 +101,7 @@ public class SipHashInline {
         // packing the last block to long, as LE 0-7 bytes + the length in the top byte
         m = 0;
         for (i = data.length - 1; i >= last; --i) {
-            m <<= 8; m |= (long) data[i];
+            m <<= 8; m |= (data[i] & 0xffL);
         }
         m |= (long) data.length << 56;
         // MSGROUND {
