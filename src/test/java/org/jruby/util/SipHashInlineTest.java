@@ -1,3 +1,6 @@
+package org.jruby.util;
+import org.jruby.util.SipHashInline;
+
 import junit.framework.TestCase;
 
 public class SipHashInlineTest extends TestCase {

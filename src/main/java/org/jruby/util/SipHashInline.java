@@ -1,3 +1,4 @@
+package org.jruby.util;
 /**
  * SipHash implementation with hand inlining the SIPROUND.
  *
