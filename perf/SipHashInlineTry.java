@@ -23,15 +23,15 @@ public class SipHashInlineTry {
 
     // Assumes data[offset + 7] exists
     public static long pack8(byte[] data, int offset) {
-        return
-            (long) data[offset    ]       |
-            (long) data[offset + 1] <<  8 |
-            (long) data[offset + 2] << 16 |
-            (long) data[offset + 3] << 24 |
-            (long) data[offset + 4] << 32 |
-            (long) data[offset + 5] << 40 |
-            (long) data[offset + 6] << 48 |
-            (long) data[offset + 7] << 56 ;
+		// pack a block to long, as LE 8 bytes
+		return data[offset  ] & 0xffL        |
+			(data[offset + 1] & 0xffL) <<  8 |
+   			(data[offset + 2] & 0xffL) << 16 |
+			(data[offset + 3] & 0xffL) << 24 |
+			(data[offset + 4] & 0xffL) << 32 |
+			(data[offset + 5] & 0xffL) << 40 |
+			(data[offset + 6] & 0xffL) << 48 |
+			(data[offset + 7] & 0xffL) << 56 ;
     }
 
     // SipHash with hand inlining and Unsafe array access
